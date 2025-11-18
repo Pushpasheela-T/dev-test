@@ -1,23 +1,31 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import LocationSearch from "./components/LocationSearch";
+import WeatherDisplay from "./components/WeatherDisplay";
+import DeltaDisplay from "./components/DeltaDisplay";
 import './App.css';
 
 function App() {
+  const [locations, setLocations] = useState([]);
+  const [weatherData, setWeatherData] = useState([]);
+  const [deltaData, setDeltaData] = useState([]);
+
+  const handleSearch = async (location) => {
+    const newLocations = [...locations, location];
+    setLocations(newLocations);
+
+    if (newLocations.length >= 2) {
+      const response = await fetch(`/api/weather?locations=${newLocations.join(',')}`);
+      const data = await response.json();
+      setWeatherData(data.weatherData);
+      setDeltaData(data.delta);
+    }
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>Weather Comparison</h1>
+      <LocationSearch onSearch={handleSearch} />
+      <WeatherDisplay data={weatherData} />
+      {Object.keys(deltaData).length > 0 && <DeltaDisplay deltas={deltaData} />}
     </div>
   );
 }
