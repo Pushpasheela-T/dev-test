@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 [ApiController]
 [Route("api/[contoller]")]
 public class WeatherController : ControllerBase

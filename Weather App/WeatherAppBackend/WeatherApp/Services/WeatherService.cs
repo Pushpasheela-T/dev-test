@@ -1,3 +1,4 @@
+using System.Text.Json;
 public class WeatherService : IWeatherService
 {
     private readonly HttpClient _httpClient;
