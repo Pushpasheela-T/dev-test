@@ -3,6 +3,7 @@ import LocationSearch from "./components/LocationSearch";
 import WeatherDisplay from "./components/WeatherDisplay";
 import DeltaDisplay from "./components/DeltaDisplay";
 import './App.css';
+const backendUrl = 'http://localhost:5000';
 
 function App() {
   const [locations, setLocations] = useState([]);
@@ -14,10 +15,14 @@ function App() {
     setLocations(newLocations);
 
     if (newLocations.length >= 2) {
-      const response = await fetch(`/api/weather?locations=${newLocations.join(',')}`);
-      const data = await response.json();
-      setWeatherData(data.weatherData);
-      setDeltaData(data.delta);
+      try {
+        const response = await fetch(`${backendUrl}/api/weather?locations=${newLocations.join('&locations=')}`);
+        const data = await response.json();
+        setWeatherData(data.weatherData);
+        setDeltaData(data.delta);
+      } catch (error) {
+        alert('Unable to fetch weather data. Please ensure the backend server is running on http://localhost:5000');
+      }
     }
   }
   return (

@@ -2,11 +2,12 @@ using System.Text.Json;
 public class WeatherService : IWeatherService
 {
     private readonly HttpClient _httpClient;
-    private readonly string _apiKey = "API_KEY";
+    private readonly string _apiKey;
 
-    public WeatherService(HttpClient httpClient)
+    public WeatherService(HttpClient httpClient, IConfiguration configuration)
     {
         _httpClient = httpClient;
+        _apiKey = configuration["TomorrowIO:ApiKey"] ?? throw new InvalidOperationExecution("TomorrowIO API key is not configured");
     }
     public async Task<List<LocationWeather>> GetWeatherDataAsync(string[] locations)
     {

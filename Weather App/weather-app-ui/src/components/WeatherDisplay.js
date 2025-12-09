@@ -14,6 +14,8 @@ function WeatherDisplay({ data }) {
                                 <th>Date</th>
                                 <th>High (°C)</th>
                                 <th>Low (°C)</th>
+                                <th>High (°F)</th>
+                                <th>Low (°F)</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -22,6 +24,8 @@ function WeatherDisplay({ data }) {
                                     <td>{f.date}</td>
                                     <td>{f.tempCelsiusHigh}</td>
                                     <td>{f.tempCelsiuslow}</td>
+                                    <td>{f.tempFahrenheitHigh}</td>
+                                    <td>{f.tempFahrenheitlow}</td>
                                 </tr>
                             ))}
                         </tbody>

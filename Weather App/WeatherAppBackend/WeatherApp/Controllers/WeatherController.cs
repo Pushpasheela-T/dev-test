@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 [ApiController]
-[Route("api/[contoller]")]
+[Route("api/[controller]")]
 public class WeatherController : ControllerBase
 {
     private readonly IWeatherService _weatherService;
@@ -10,6 +10,7 @@ public class WeatherController : ControllerBase
     
     }
     [HttpGet]
+    [Route("GetWeather")]
     public async Task<IActionResult> GetWeather([FromQuery] string[] locations)
     {
         if (locations.Length < 2)
