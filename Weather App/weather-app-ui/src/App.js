@@ -16,7 +16,7 @@ function App() {
 
     if (newLocations.length >= 2) {
       try {
-        const response = await fetch(`${backendUrl}/api/weather?locations=${newLocations.join('&locations=')}`);
+        const response = await fetch(`${backendUrl}/api/weather/GetWeather?locations=${newLocations.join('&locations=')}`);
         const data = await response.json();
         setWeatherData(data.weatherData);
         setDeltaData(data.delta);
