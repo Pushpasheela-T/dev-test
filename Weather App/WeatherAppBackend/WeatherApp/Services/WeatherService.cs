@@ -7,7 +7,7 @@ public class WeatherService : IWeatherService
     public WeatherService(HttpClient httpClient, IConfiguration configuration)
     {
         _httpClient = httpClient;
-        _apiKey = configuration["TomorrowIO:ApiKey"] ?? throw new InvalidOperationExecution("TomorrowIO API key is not configured");
+        _apiKey = configuration["TomorrowIO:ApiKey"] ?? throw new InvalidOperationException("TomorrowIO API key is not configured");
     }
     public async Task<List<LocationWeather>> GetWeatherDataAsync(string[] locations)
     {
@@ -25,7 +25,7 @@ public class WeatherService : IWeatherService
                 var values = day.GetProperty("values");
                 locationWeather.Forecasts.Add(new DailyForecast
                 {
-                    Date = DateTime.Parse(day.GetProperty("time").GetString()),
+                    Date = DateTime.Parse(day.GetProperty("time").GetString() ?? string.Empty),
                     TempCelsiusHigh = values.GetProperty("temperatureMax").GetDouble(),
                     TempCelsiusLow = values.GetProperty("temperatureMin").GetDouble(),
                 });
